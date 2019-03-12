@@ -17,6 +17,8 @@
 
 namespace Recurr;
 
+use Carbon\Carbon;
+
 /**
  * Class DateUtil is responsible for providing utilities applicable to Rules.
  *
@@ -431,7 +433,7 @@ class DateUtil
 
     public static function getDateTimeByDayOfYear($dayOfYear, $year, \DateTimeZone $timezone)
     {
-        $dtTmp = new \DateTime('now', $timezone);
+        $dtTmp = new Carbon('now', $timezone);
         $dtTmp = $dtTmp->setDate($year, 1, 1);
         $dtTmp = $dtTmp->modify("+$dayOfYear day");
 
@@ -440,7 +442,7 @@ class DateUtil
 
     public static function hasLeapYearBug()
     {
-        $leapBugTest = \DateTime::createFromFormat('Y-m-d', '2016-03-21');
+        $leapBugTest = Carbon::createFromFormat('Y-m-d', '2016-03-21');
         return $leapBugTest->format('z') != '80';
     }
 

@@ -17,6 +17,7 @@
 
 namespace Recurr;
 
+use Carbon\Carbon;
 use Recurr\Exception\InvalidArgument;
 use Recurr\Exception\InvalidRRule;
 use Recurr\Exception\InvalidWeekday;
@@ -29,7 +30,7 @@ use Recurr\Exception\InvalidWeekday;
  *
  * Information, not contained in the built/parsed RRULE, necessary to determine
  * the various recurrence instance start time and dates are derived from the
- * DTSTART property (default: \DateTime()).
+ * DTSTART property (default: Carbon)).
  *
  * For example, "FREQ=YEARLY;BYMONTH=1" doesn't specify a specific day within
  * the month or a time. This information would be the same as what is specified
@@ -197,13 +198,13 @@ class Rule
         $this->setTimezone($timezone);
 
         if ($startDate !== null && !$startDate instanceof \DateTimeInterface) {
-            $startDate = new \DateTime($startDate, new \DateTimeZone($timezone));
+            $startDate = new Carbon($startDate, new \DateTimeZone($timezone));
         }
 
         $this->setStartDate($startDate);
 
         if ($endDate !== null && !$endDate instanceof \DateTimeInterface) {
-            $endDate = new \DateTime($endDate, new \DateTimeZone($timezone));
+            $endDate = new Carbon($endDate, new \DateTimeZone($timezone));
         }
 
         $this->setEndDate($endDate);
@@ -344,14 +345,14 @@ class Rule
         // DTSTART
         if (isset($parts['DTSTART'])) {
             $this->isStartDateFromDtstart = true;
-            $date = new \DateTime($parts['DTSTART']);
+            $date = new Carbon($parts['DTSTART']);
             $date = $date->setTimezone(new \DateTimeZone($this->getTimezone()));
             $this->setStartDate($date);
         }
 
         // DTEND
         if (isset($parts['DTEND'])) {
-            $date = new \DateTime($parts['DTEND']);
+            $date = new Carbon($parts['DTEND']);
             $date = $date->setTimezone(new \DateTimeZone($this->getTimezone()));
             $this->setEndDate($date);
         }
@@ -360,7 +361,7 @@ class Rule
         if (isset($parts['UNTIL']) && isset($parts['COUNT'])) {
             throw new InvalidRRule('UNTIL and COUNT must not exist together in the same RRULE');
         } elseif (isset($parts['UNTIL'])) {
-            $date = new \DateTime($parts['UNTIL']);
+            $date = new Carbon($parts['UNTIL']);
             $date = $date->setTimezone(new \DateTimeZone($this->getTimezone()));
             $this->setUntil($date);
         } elseif (isset($parts['COUNT'])) {
@@ -1221,7 +1222,7 @@ class Rule
             if ($val instanceof DateInclusion) {
                 $val->date = $this->convertZtoUtc($val->date);
             } else {
-                $date          = new \DateTime($val, $timezone);
+                $date          = new Carbon($val, $timezone);
                 $rDates[$key] = new DateInclusion(
                     $this->convertZtoUtc($date),
                     strpos($val, 'T') !== false,
@@ -1262,7 +1263,7 @@ class Rule
             if ($val instanceof DateExclusion) {
                 $val->date = $this->convertZtoUtc($val->date);
             } else {
-                $date          = new \DateTime($val, $timezone);
+                $date          = new Carbon($val, $timezone);
                 $exDates[$key] = new DateExclusion(
                     $this->convertZtoUtc($date),
                     strpos($val, 'T') !== false,
