@@ -2,6 +2,7 @@
 
 namespace Recurr\Test\Transformer;
 
+use Carbon\Carbon;
 use Recurr\Rule;
 use Symfony\Component\Yaml\Yaml;
 use Recurr\Transformer\Translator;
@@ -17,7 +18,7 @@ class TextTransformerTest extends \PHPUnit_Framework_TestCase
     public function testFormatting($lang, $rule, $expected)
     {
         // Sunday, March 16th is our reference start date
-        $dateTime = new \DateTime('2014-03-16 04:00:00');
+        $dateTime = new Carbon('2014-03-16 04:00:00');
         $rule = new Rule($rule, $dateTime);
 
         $transformer = new TextTransformer(new Translator($lang));

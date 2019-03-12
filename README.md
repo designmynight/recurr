@@ -20,8 +20,8 @@ You can create a new Rule object by passing the ([RRULE](https://tools.ietf.org/
 
 ```php
 $timezone    = 'America/New_York';
-$startDate   = new \DateTime('2013-06-12 20:00:00', new \DateTimeZone($timezone));
-$endDate     = new \DateTime('2013-06-14 20:00:00', new \DateTimeZone($timezone)); // Optional
+$startDate   = new Carbon('2013-06-12 20:00:00', new \DateTimeZone($timezone));
+$endDate     = new Carbon('2013-06-14 20:00:00', new \DateTimeZone($timezone)); // Optional
 $rule        = new \Recurr\Rule('FREQ=MONTHLY;COUNT=5', $startDate, $endDate, $timezone);
 ```
 
@@ -33,7 +33,7 @@ $rule = (new \Recurr\Rule)
     ->setTimezone($timezone)
     ->setFreq('DAILY')
     ->setByDay(['MO', 'TU'])
-    ->setUntil(new \DateTime('2017-12-31'))
+    ->setUntil(new Carbon('2017-12-31'))
 ;
 
 echo $rule->getString(); //FREQ=DAILY;UNTIL=20171231T000000;BYDAY=MO,TU
@@ -66,11 +66,11 @@ Constraints are used by the ArrayTransformer to allow or prevent certain dates f
 `$inc` defines what happens if `$after` or `$before` are themselves recurrences. If `$inc = true`, they will be included in the collection. For example,
 
 ```php
-$startDate   = new \DateTime('2014-06-17 04:00:00');
+$startDate   = new Carbon('2014-06-17 04:00:00');
 $rule        = new \Recurr\Rule('FREQ=MONTHLY;COUNT=5', $startDate);
 $transformer = new \Recurr\Transformer\ArrayTransformer();
 
-$constraint = new \Recurr\Transformer\Constraint\BeforeConstraint(new \DateTime('2014-08-01 00:00:00'));
+$constraint = new \Recurr\Transformer\Constraint\BeforeConstraint(new Carbon('2014-08-01 00:00:00'));
 print_r($transformer->transform($rule, $constraint));
 ```
 
@@ -102,7 +102,7 @@ Recurr supports transforming some recurrence rules into human readable text.
 This feature is still in beta and only supports yearly, monthly, weekly, and daily frequencies.
 
 ```php
-$rule = new Rule('FREQ=YEARLY;INTERVAL=2;COUNT=3;', new \DateTime());
+$rule = new Rule('FREQ=YEARLY;INTERVAL=2;COUNT=3;', new Carbon));
 
 $textTransformer = new TextTransformer();
 echo $textTransformer->transform($rule);
@@ -112,7 +112,7 @@ If you need more than English you can pass in a translator with one of the
 supported locales *(see translations folder)*.
 
 ```php
-$rule = new Rule('FREQ=YEARLY;INTERVAL=2;COUNT=3;', new \DateTime());
+$rule = new Rule('FREQ=YEARLY;INTERVAL=2;COUNT=3;', new Carbon));
 
 $textTransformer = new TextTransformer(
     new \Recurr\Transformer\Translator('de')
@@ -131,7 +131,7 @@ This behavior is configurable:
 
 ```php
 $timezone    = 'America/New_York';
-$startDate   = new \DateTime('2013-01-31 20:00:00', new \DateTimeZone($timezone));
+$startDate   = new Carbon('2013-01-31 20:00:00', new \DateTimeZone($timezone));
 $rule        = new \Recurr\Rule('FREQ=MONTHLY;COUNT=5', $startDate, null, $timezone);
 $transformer = new \Recurr\Transformer\ArrayTransformer();
 
