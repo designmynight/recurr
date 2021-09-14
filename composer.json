@@ -22,8 +22,12 @@
 	},
 	"autoload": {
 		"psr-4": {
-			"Recurr\\": "src/Recurr/",
-			"Recurr\\Test\\": "tests/"
+			"Recurr\\": "src/Recurr/"
+		}
+	},
+	"autoload-dev": {
+		"psr-4": {
+			"Recurr\\Test\\": "tests/Recurr/Test"
 		}
 	},
 	"extra": {
