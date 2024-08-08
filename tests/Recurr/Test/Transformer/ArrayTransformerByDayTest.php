@@ -33,8 +33,8 @@ class ArrayTransformerByDayTest extends ArrayTransformerBase
     {
               $rule = new Rule(
             'FREQ=WEEKLY;COUNT=10;BYDAY=WE',
-            new Carbon('2015-03-01 16:00:00', new CarbonZone('Europe/London')),
-            new Carbon('2015-03-01 17:00:00', new CarbonZone('Europe/London')),
+            new Carbon('2015-03-01 16:00:00', new \DateTimeZone('Europe/London')),
+            new Carbon('2015-03-01 17:00:00', new \DateTimeZone('Europe/London')),
             'Europe/London'
         );
 
@@ -42,21 +42,21 @@ class ArrayTransformerByDayTest extends ArrayTransformerBase
 
         $this->assertEquals(10, count($computed));
         $this->assertEquals('Europe/London', $computed[0]->getStart()->getTimezone()->getName());
-        $this->assertEquals(new Carbon('2015-03-04 16:00:00', new CarbonZone('UTC')), $computed[0]->getStart());
+        $this->assertEquals(new Carbon('2015-03-04 16:00:00', new \DateTimeZone('UTC')), $computed[0]->getStart());
         $this->assertEquals('Europe/London', $computed[1]->getStart()->getTimezone()->getName());
-        $this->assertEquals(new Carbon('2015-03-11 16:00:00', new CarbonZone('UTC')), $computed[1]->getStart());
+        $this->assertEquals(new Carbon('2015-03-11 16:00:00', new \DateTimeZone('UTC')), $computed[1]->getStart());
         $this->assertEquals('Europe/London', $computed[2]->getStart()->getTimezone()->getName());
-        $this->assertEquals(new Carbon('2015-03-18 16:00:00', new CarbonZone('UTC')), $computed[2]->getStart());
+        $this->assertEquals(new Carbon('2015-03-18 16:00:00', new \DateTimeZone('UTC')), $computed[2]->getStart());
         $this->assertEquals('Europe/London', $computed[3]->getStart()->getTimezone()->getName());
-        $this->assertEquals(new Carbon('2015-03-25 16:00:00', new CarbonZone('UTC')), $computed[3]->getStart());
+        $this->assertEquals(new Carbon('2015-03-25 16:00:00', new \DateTimeZone('UTC')), $computed[3]->getStart());
         // UK BST change happens here. Should change
         // to be honest, not sure if it should be 15 or 17 but def should NOT be 16.
         $this->assertEquals('Europe/London', $computed[4]->getStart()->getTimezone()->getName());
-        $this->assertEquals(new Carbon('2015-04-01 15:00:00', new CarbonZone('UTC')), $computed[4]->getStart());
+        $this->assertEquals(new Carbon('2015-04-01 15:00:00', new \DateTimeZone('UTC')), $computed[4]->getStart());
         $this->assertEquals('Europe/London', $computed[5]->getStart()->getTimezone()->getName());
-        $this->assertEquals(new Carbon('2015-04-08 15:00:00', new CarbonZone('UTC')), $computed[5]->getStart());
+        $this->assertEquals(new Carbon('2015-04-08 15:00:00', new \DateTimeZone('UTC')), $computed[5]->getStart());
         $this->assertEquals('Europe/London', $computed[6]->getStart()->getTimezone()->getName());
-        $this->assertEquals(new Carbon('2015-04-15 15:00:00', new CarbonZone('UTC')), $computed[6]->getStart());
+        $this->assertEquals(new Carbon('2015-04-15 15:00:00', new \DateTimeZone('UTC')), $computed[6]->getStart());
     }
 
     public function testByDayMonthly()

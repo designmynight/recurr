@@ -10,7 +10,7 @@ class ArrayTransformerWeeklyTest extends ArrayTransformerBase
     public function testWeekly()
     {
         $timezone = 'America/New_York';
-        $timezoneObj = new CarbonZone($timezone);
+        $timezoneObj = new \DateTimeZone($timezone);
 
         $rule = new Rule(
             'FREQ=WEEKLY;COUNT=5;INTERVAL=1',
@@ -32,7 +32,7 @@ class ArrayTransformerWeeklyTest extends ArrayTransformerBase
     public function testWeeklyInterval()
     {
         $timezone = 'America/New_York';
-        $timezoneObj = new CarbonZone($timezone);
+        $timezoneObj = new \DateTimeZone($timezone);
 
         $rule = new Rule(
             'FREQ=WEEKLY;COUNT=5;INTERVAL=2',
@@ -54,7 +54,7 @@ class ArrayTransformerWeeklyTest extends ArrayTransformerBase
     public function testWeeklyIntervalLeapYear()
     {
         $timezone = 'America/New_York';
-        $timezoneObj = new CarbonZone($timezone);
+        $timezoneObj = new \DateTimeZone($timezone);
 
         $rule = new Rule(
             'FREQ=WEEKLY;COUNT=7;INTERVAL=2',
@@ -78,7 +78,7 @@ class ArrayTransformerWeeklyTest extends ArrayTransformerBase
     public function testWeeklyIntervalTouchingJan1()
     {
         $timezone = 'America/New_York';
-        $timezoneObj = new CarbonZone($timezone);
+        $timezoneObj = new \DateTimeZone($timezone);
 
         $rule = new Rule(
             'FREQ=WEEKLY;COUNT=3;INTERVAL=2',

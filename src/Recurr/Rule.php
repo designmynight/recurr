@@ -198,13 +198,13 @@ class Rule
         $this->setTimezone($timezone);
 
         if ($startDate !== null && !$startDate instanceof \DateTimeInterface) {
-            $startDate = new Carbon($startDate, new CarbonZone($timezone));
+            $startDate = new Carbon($startDate, new \DateTimeZone($timezone));
         }
 
         $this->setStartDate($startDate);
 
         if ($endDate !== null && !$endDate instanceof \DateTimeInterface) {
-            $endDate = new Carbon($endDate, new CarbonZone($timezone));
+            $endDate = new Carbon($endDate, new \DateTimeZone($timezone));
         }
 
         $this->setEndDate($endDate);
@@ -346,14 +346,14 @@ class Rule
         if (isset($parts['DTSTART'])) {
             $this->isStartDateFromDtstart = true;
             $date = new Carbon($parts['DTSTART']);
-            $date = $date->setTimezone(new CarbonZone($this->getTimezone()));
+            $date = $date->setTimezone(new \DateTimeZone($this->getTimezone()));
             $this->setStartDate($date);
         }
 
         // DTEND
         if (isset($parts['DTEND'])) {
             $date = new Carbon($parts['DTEND']);
-            $date = $date->setTimezone(new CarbonZone($this->getTimezone()));
+            $date = $date->setTimezone(new \DateTimeZone($this->getTimezone()));
             $this->setEndDate($date);
         }
 
@@ -362,7 +362,7 @@ class Rule
             throw new InvalidRRule('UNTIL and COUNT must not exist together in the same RRULE');
         } elseif (isset($parts['UNTIL'])) {
             $date = new Carbon($parts['UNTIL']);
-            $date = $date->setTimezone(new CarbonZone($this->getTimezone()));
+            $date = $date->setTimezone(new \DateTimeZone($this->getTimezone()));
             $this->setUntil($date);
         } elseif (isset($parts['COUNT'])) {
             $this->setCount($parts['COUNT']);
@@ -458,7 +458,7 @@ class Rule
         if (!empty($until)) {
             if ($timezoneType === self::TZ_FIXED) {
                 $u = clone $until;
-                $u = $u->setTimezone(new CarbonZone('UTC'));
+                $u = $u->setTimezone(new \DateTimeZone('UTC'));
                 $parts[] = 'UNTIL='.$u->format($format.'\Z');
             } else {
                 $parts[] = 'UNTIL='.$until->format($format);
@@ -802,7 +802,7 @@ class Rule
             && $this->getTimezone() != 'UTC'
         ) {
             $timestamp = $date->getTimestamp();
-            $date = $date->setTimezone(new CarbonZone($this->getTimezone()));
+            $date = $date->setTimezone(new \DateTimeZone($this->getTimezone()));
             $date = $date->setTimestamp($timestamp);
         }
 
@@ -1216,7 +1216,7 @@ class Rule
      */
     public function setRDates(array $rDates)
     {
-        $timezone = new CarbonZone($this->getTimezone());
+        $timezone = new \DateTimeZone($this->getTimezone());
 
         foreach ($rDates as $key => $val) {
             if ($val instanceof DateInclusion) {
@@ -1257,7 +1257,7 @@ class Rule
      */
     public function setExDates(array $exDates)
     {
-        $timezone = new CarbonZone($this->getTimezone());
+        $timezone = new \DateTimeZone($this->getTimezone());
 
         foreach ($exDates as $key => $val) {
             if ($val instanceof DateExclusion) {
@@ -1293,7 +1293,7 @@ class Rule
             return $date;
         }
 
-        return $date->setTimezone(new CarbonZone('UTC'));
+        return $date->setTimezone(new \DateTimeZone('UTC'));
     }
 
     /**

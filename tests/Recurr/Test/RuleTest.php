@@ -46,7 +46,7 @@ class RuleTest extends \PHPUnit\Framework\TestCase
 
     public function testTimezoneObtainedFromStartDate()
     {
-        $startDate = new Carbon('2014-01-25 05:20:30', new CarbonZone('America/Los_Angeles'));
+        $startDate = new Carbon('2014-01-25 05:20:30', new \DateTimeZone('America/Los_Angeles'));
 
         $this->rule = new Rule(null, $startDate);
         $this->assertEquals($startDate->getTimezone()->getName(), $this->rule->getTimezone());
@@ -284,7 +284,7 @@ class RuleTest extends \PHPUnit\Framework\TestCase
         $this->rule->setTimezone('America/Los_Angeles');
         $this->rule->loadFromString($string);
 
-        $expectedStartDate = new Carbon('2014-02-22 05:30:00', new CarbonZone('America/Los_Angeles'));
+        $expectedStartDate = new Carbon('2014-02-22 05:30:00', new \DateTimeZone('America/Los_Angeles'));
 
         $this->assertEquals(Frequency::MONTHLY, $this->rule->getFreq());
         $this->assertEquals($expectedStartDate, $this->rule->getStartDate());
@@ -301,7 +301,7 @@ class RuleTest extends \PHPUnit\Framework\TestCase
         $this->rule->setTimezone('America/Los_Angeles');
         $this->rule->loadFromString($string);
 
-        $expectedEndDate = new Carbon('2014-04-22 12:00:00', new CarbonZone('America/Los_Angeles'));
+        $expectedEndDate = new Carbon('2014-04-22 12:00:00', new \DateTimeZone('America/Los_Angeles'));
 
         $this->assertEquals(Frequency::MONTHLY, $this->rule->getFreq());
         $this->assertEquals($expectedEndDate, $this->rule->getEndDate());
@@ -343,7 +343,7 @@ class RuleTest extends \PHPUnit\Framework\TestCase
     {
         $this->rule->setFreq('DAILY');
         $this->rule->setInterval(1);
-        $this->rule->setUntil(new Carbon('2015-07-10 04:00:00', new CarbonZone('America/New_York')));
+        $this->rule->setUntil(new Carbon('2015-07-10 04:00:00', new \DateTimeZone('America/New_York')));
 
         $this->assertNotEquals(
             'FREQ=DAILY;UNTIL=20150710T040000Z;INTERVAL=1',

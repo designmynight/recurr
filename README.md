@@ -28,8 +28,8 @@ You can create a new Rule object by passing the ([RRULE](https://tools.ietf.org/
 
 ```php
 $timezone    = 'America/New_York';
-$startDate   = new Carbon('2013-06-12 20:00:00', new CarbonZone($timezone));
-$endDate     = new Carbon('2013-06-14 20:00:00', new CarbonZone($timezone)); // Optional
+$startDate   = new Carbon('2013-06-12 20:00:00', new \DateTimeZone($timezone));
+$endDate     = new Carbon('2013-06-14 20:00:00', new \DateTimeZone($timezone)); // Optional
 $rule        = new \Recurr\Rule('FREQ=MONTHLY;COUNT=5', $startDate, $endDate, $timezone);
 ```
 
@@ -139,7 +139,7 @@ This behavior is configurable:
 
 ```php
 $timezone    = 'America/New_York';
-$startDate   = new Carbon('2013-01-31 20:00:00', new CarbonZone($timezone));
+$startDate   = new Carbon('2013-01-31 20:00:00', new \DateTimeZone($timezone));
 $rule        = new \Recurr\Rule('FREQ=MONTHLY;COUNT=5', $startDate, null, $timezone);
 $transformer = new \Recurr\Transformer\ArrayTransformer();
 
