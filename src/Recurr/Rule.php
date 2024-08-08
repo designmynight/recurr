@@ -17,6 +17,7 @@
 
 namespace Recurr;
 
+use Carbon\Carbon;
 use Recurr\Exception\InvalidArgument;
 use Recurr\Exception\InvalidRRule;
 use Recurr\Exception\InvalidWeekday;
@@ -197,13 +198,13 @@ class Rule
         $this->setTimezone($timezone);
 
         if ($startDate !== null && !$startDate instanceof \DateTimeInterface) {
-            $startDate = new \DateTime($startDate, new \DateTimeZone($timezone));
+            $startDate = new Carbon($startDate, new CarbonZone($timezone));
         }
 
         $this->setStartDate($startDate);
 
         if ($endDate !== null && !$endDate instanceof \DateTimeInterface) {
-            $endDate = new \DateTime($endDate, new \DateTimeZone($timezone));
+            $endDate = new Carbon($endDate, new CarbonZone($timezone));
         }
 
         $this->setEndDate($endDate);
@@ -344,15 +345,15 @@ class Rule
         // DTSTART
         if (isset($parts['DTSTART'])) {
             $this->isStartDateFromDtstart = true;
-            $date = new \DateTime($parts['DTSTART']);
-            $date = $date->setTimezone(new \DateTimeZone($this->getTimezone()));
+            $date = new Carbon($parts['DTSTART']);
+            $date = $date->setTimezone(new CarbonZone($this->getTimezone()));
             $this->setStartDate($date);
         }
 
         // DTEND
         if (isset($parts['DTEND'])) {
-            $date = new \DateTime($parts['DTEND']);
-            $date = $date->setTimezone(new \DateTimeZone($this->getTimezone()));
+            $date = new Carbon($parts['DTEND']);
+            $date = $date->setTimezone(new CarbonZone($this->getTimezone()));
             $this->setEndDate($date);
         }
 
@@ -360,8 +361,8 @@ class Rule
         if (isset($parts['UNTIL']) && isset($parts['COUNT'])) {
             throw new InvalidRRule('UNTIL and COUNT must not exist together in the same RRULE');
         } elseif (isset($parts['UNTIL'])) {
-            $date = new \DateTime($parts['UNTIL']);
-            $date = $date->setTimezone(new \DateTimeZone($this->getTimezone()));
+            $date = new Carbon($parts['UNTIL']);
+            $date = $date->setTimezone(new CarbonZone($this->getTimezone()));
             $this->setUntil($date);
         } elseif (isset($parts['COUNT'])) {
             $this->setCount($parts['COUNT']);
@@ -457,7 +458,7 @@ class Rule
         if (!empty($until)) {
             if ($timezoneType === self::TZ_FIXED) {
                 $u = clone $until;
-                $u = $u->setTimezone(new \DateTimeZone('UTC'));
+                $u = $u->setTimezone(new CarbonZone('UTC'));
                 $parts[] = 'UNTIL='.$u->format($format.'\Z');
             } else {
                 $parts[] = 'UNTIL='.$until->format($format);
@@ -801,7 +802,7 @@ class Rule
             && $this->getTimezone() != 'UTC'
         ) {
             $timestamp = $date->getTimestamp();
-            $date = $date->setTimezone(new \DateTimeZone($this->getTimezone()));
+            $date = $date->setTimezone(new CarbonZone($this->getTimezone()));
             $date = $date->setTimestamp($timestamp);
         }
 
@@ -1215,13 +1216,13 @@ class Rule
      */
     public function setRDates(array $rDates)
     {
-        $timezone = new \DateTimeZone($this->getTimezone());
+        $timezone = new CarbonZone($this->getTimezone());
 
         foreach ($rDates as $key => $val) {
             if ($val instanceof DateInclusion) {
                 $val->date = $this->convertZtoUtc($val->date);
             } else {
-                $date          = new \DateTime($val, $timezone);
+                $date          = new Carbon($val, $timezone);
                 $rDates[$key] = new DateInclusion(
                     $this->convertZtoUtc($date),
                     strpos($val, 'T') !== false,
@@ -1256,13 +1257,13 @@ class Rule
      */
     public function setExDates(array $exDates)
     {
-        $timezone = new \DateTimeZone($this->getTimezone());
+        $timezone = new CarbonZone($this->getTimezone());
 
         foreach ($exDates as $key => $val) {
             if ($val instanceof DateExclusion) {
                 $val->date = $this->convertZtoUtc($val->date);
             } else {
-                $date          = new \DateTime($val, $timezone);
+                $date          = new Carbon($val, $timezone);
                 $exDates[$key] = new DateExclusion(
                     $this->convertZtoUtc($date),
                     strpos($val, 'T') !== false,
@@ -1292,7 +1293,7 @@ class Rule
             return $date;
         }
 
-        return $date->setTimezone(new \DateTimeZone('UTC'));
+        return $date->setTimezone(new CarbonZone('UTC'));
     }
 
     /**
