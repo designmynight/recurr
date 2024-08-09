@@ -2,6 +2,7 @@
 
 namespace Recurr\Test;
 
+use Carbon\Carbon;
 use Recurr\DateExclusion;
 use Recurr\DateInclusion;
 use Recurr\Frequency;
@@ -25,7 +26,7 @@ class RuleTest extends \PHPUnit\Framework\TestCase
         $this->rule = new Rule(null, '2018-09-19');
         $this->assertInstanceOf(\DateTime::class, $this->rule->getStartDate());
 
-        $this->rule = new Rule(null, new \DateTime('2018-09-19'));
+        $this->rule = new Rule(null, new Carbon('2018-09-19'));
         $this->assertInstanceOf(\DateTime::class, $this->rule->getStartDate());
     }
 
@@ -34,7 +35,7 @@ class RuleTest extends \PHPUnit\Framework\TestCase
         $this->rule = new Rule(null, null, '2018-09-19');
         $this->assertInstanceOf(\DateTime::class, $this->rule->getEndDate());
 
-        $this->rule = new Rule(null, null, new \DateTime('2018-09-19'));
+        $this->rule = new Rule(null, null, new Carbon('2018-09-19'));
         $this->assertInstanceOf(\DateTime::class, $this->rule->getEndDate());
     }
 
@@ -45,7 +46,7 @@ class RuleTest extends \PHPUnit\Framework\TestCase
 
     public function testTimezoneObtainedFromStartDate()
     {
-        $startDate = new \DateTime('2014-01-25 05:20:30', new \DateTimeZone('America/Los_Angeles'));
+        $startDate = new Carbon('2014-01-25 05:20:30', new \DateTimeZone('America/Los_Angeles'));
 
         $this->rule = new Rule(null, $startDate);
         $this->assertEquals($startDate->getTimezone()->getName(), $this->rule->getTimezone());
@@ -98,17 +99,17 @@ class RuleTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals('TU', $this->rule->getWeekStart());
         $this->assertEquals(
             array(
-                new DateInclusion(new \DateTime(20151210), false),
-                new DateInclusion(new \DateTime('20151214T020000'), true),
-                new DateInclusion(new \DateTime('20151215 21:00:00 UTC'), true, true)
+                new DateInclusion(new Carbon('20151210'), false),
+                new DateInclusion(new Carbon('20151214T020000'), true),
+                new DateInclusion(new Carbon('20151215 21:00:00 UTC'), true, true)
             ),
             $this->rule->getRDates()
         );
         $this->assertEquals(
             array(
-                new DateExclusion(new \DateTime(20140607), false),
-                new DateExclusion(new \DateTime('20140620T010000'), true),
-                new DateExclusion(new \DateTime('20140620 16:00:00 UTC'), true, true)
+                new DateExclusion(new Carbon('20140607'), false),
+                new DateExclusion(new Carbon('20140620T010000'), true),
+                new DateExclusion(new Carbon('20140620 16:00:00 UTC'), true, true)
             ),
             $this->rule->getExDates()
         );
@@ -138,7 +139,7 @@ class RuleTest extends \PHPUnit\Framework\TestCase
         $this->rule->loadFromString($string);
 
         $this->assertEquals(Frequency::YEARLY, $this->rule->getFreq());
-        $this->assertEquals(new \DateTime('2019-01-02'), $this->rule->getStartDate());
+        $this->assertEquals(new Carbon('2019-01-02'), $this->rule->getStartDate());
         $this->assertEquals(2, $this->rule->getCount());
         $this->assertEquals(2, $this->rule->getInterval());
         $this->assertEquals(array(30), $this->rule->getBySecond());
@@ -153,17 +154,17 @@ class RuleTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals('TU', $this->rule->getWeekStart());
         $this->assertEquals(
             array(
-                new DateInclusion(new \DateTime(20151210), false),
-                new DateInclusion(new \DateTime('20151214T020000'), true),
-                new DateInclusion(new \DateTime('20151215 21:00:00 UTC'), true, true)
+                new DateInclusion(new Carbon('20151210'), false),
+                new DateInclusion(new Carbon('20151214T020000'), true),
+                new DateInclusion(new Carbon('20151215 21:00:00 UTC'), true, true)
             ),
             $this->rule->getRDates()
         );
         $this->assertEquals(
             array(
-                new DateExclusion(new \DateTime(20140607), false),
-                new DateExclusion(new \DateTime('20140620T010000'), true),
-                new DateExclusion(new \DateTime('20140620 16:00:00 UTC'), true, true)
+                new DateExclusion(new Carbon('20140607'), false),
+                new DateExclusion(new Carbon('20140620T010000'), true),
+                new DateExclusion(new Carbon('20140620 16:00:00 UTC'), true, true)
             ),
             $this->rule->getExDates()
         );
@@ -205,17 +206,17 @@ class RuleTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals('TU', $this->rule->getWeekStart());
         $this->assertEquals(
             array(
-                new DateInclusion(new \DateTime(20151210), false),
-                new DateInclusion(new \DateTime('20151214T020000'), true),
-                new DateInclusion(new \DateTime('20151215 21:00:00 UTC'), true, true)
+                new DateInclusion(new Carbon('20151210'), false),
+                new DateInclusion(new Carbon('20151214T020000'), true),
+                new DateInclusion(new Carbon('20151215 21:00:00 UTC'), true, true)
             ),
             $this->rule->getRDates()
         );
         $this->assertEquals(
             array(
-                new DateExclusion(new \DateTime(20140607), false),
-                new DateExclusion(new \DateTime('20140620T010000'), true),
-                new DateExclusion(new \DateTime('20140620 16:00:00 UTC'), true, true)
+                new DateExclusion(new Carbon('20140607'), false),
+                new DateExclusion(new Carbon('20140620T010000'), true),
+                new DateExclusion(new Carbon('20140620 16:00:00 UTC'), true, true)
             ),
             $this->rule->getExDates()
         );
@@ -256,17 +257,17 @@ class RuleTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals('TU', $this->rule->getWeekStart());
         $this->assertEquals(
             array(
-                new DateInclusion(new \DateTime(20151210), false),
-                new DateInclusion(new \DateTime('20151214T020000'), true),
-                new DateInclusion(new \DateTime('20151215 21:00:00 UTC'), true, true)
+                new DateInclusion(new Carbon('20151210'), false),
+                new DateInclusion(new Carbon('20151214T020000'), true),
+                new DateInclusion(new Carbon('20151215 21:00:00 UTC'), true, true)
             ),
             $this->rule->getRDates()
         );
         $this->assertEquals(
             array(
-                new DateExclusion(new \DateTime(20140607), false),
-                new DateExclusion(new \DateTime('20140620T010000'), true),
-                new DateExclusion(new \DateTime('20140620 16:00:00 UTC'), true, true)
+                new DateExclusion(new Carbon('20140607'), false),
+                new DateExclusion(new Carbon('20140620T010000'), true),
+                new DateExclusion(new Carbon('20140620 16:00:00 UTC'), true, true)
             ),
             $this->rule->getExDates()
         );
@@ -283,7 +284,7 @@ class RuleTest extends \PHPUnit\Framework\TestCase
         $this->rule->setTimezone('America/Los_Angeles');
         $this->rule->loadFromString($string);
 
-        $expectedStartDate = new \DateTime('2014-02-22 05:30:00', new \DateTimeZone('America/Los_Angeles'));
+        $expectedStartDate = new Carbon('2014-02-22 05:30:00', new \DateTimeZone('America/Los_Angeles'));
 
         $this->assertEquals(Frequency::MONTHLY, $this->rule->getFreq());
         $this->assertEquals($expectedStartDate, $this->rule->getStartDate());
@@ -300,7 +301,7 @@ class RuleTest extends \PHPUnit\Framework\TestCase
         $this->rule->setTimezone('America/Los_Angeles');
         $this->rule->loadFromString($string);
 
-        $expectedEndDate = new \DateTime('2014-04-22 12:00:00', new \DateTimeZone('America/Los_Angeles'));
+        $expectedEndDate = new Carbon('2014-04-22 12:00:00', new \DateTimeZone('America/Los_Angeles'));
 
         $this->assertEquals(Frequency::MONTHLY, $this->rule->getFreq());
         $this->assertEquals($expectedEndDate, $this->rule->getEndDate());
@@ -342,7 +343,7 @@ class RuleTest extends \PHPUnit\Framework\TestCase
     {
         $this->rule->setFreq('DAILY');
         $this->rule->setInterval(1);
-        $this->rule->setUntil(new \DateTime('2015-07-10 04:00:00', new \DateTimeZone('America/New_York')));
+        $this->rule->setUntil(new Carbon('2015-07-10 04:00:00', new \DateTimeZone('America/New_York')));
 
         $this->assertNotEquals(
             'FREQ=DAILY;UNTIL=20150710T040000Z;INTERVAL=1',
@@ -414,13 +415,13 @@ class RuleTest extends \PHPUnit\Framework\TestCase
         $this->rule->loadFromString('FREQ=MONTHLY;COUNT=2');
         $this->assertEquals('FREQ=MONTHLY;COUNT=2', $this->rule->getString());
 
-        $this->rule->setStartDate(new \DateTime('2015-12-10'));
+        $this->rule->setStartDate(new Carbon('2015-12-10'));
         $this->assertEquals('FREQ=MONTHLY;COUNT=2', $this->rule->getString());
 
-        $this->rule->setStartDate(new \DateTime('2015-12-10'), true);
+        $this->rule->setStartDate(new Carbon('2015-12-10'), true);
         $this->assertEquals('FREQ=MONTHLY;COUNT=2;DTSTART=20151210T000000', $this->rule->getString());
 
-        $this->rule->setStartDate(new \DateTime('2015-12-10'), false);
+        $this->rule->setStartDate(new Carbon('2015-12-10'), false);
         $this->assertEquals('FREQ=MONTHLY;COUNT=2', $this->rule->getString());
     }
 

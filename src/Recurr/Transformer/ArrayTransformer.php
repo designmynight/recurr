@@ -14,6 +14,7 @@
 
 namespace Recurr\Transformer;
 
+use Carbon\Carbon;
 use Recurr\DateExclusion;
 use Recurr\DateInclusion;
 use Recurr\Exception\InvalidWeekday;
@@ -90,7 +91,7 @@ class ArrayTransformer
         $until = $rule->getUntil();
 
         if (null === $start) {
-            $start = new \DateTime(
+            $start = new Carbon(
                 'now', $until instanceof \DateTimeInterface ? $until->getTimezone() : null
             );
         }
@@ -319,7 +320,7 @@ class ArrayTransformer
                     // or week number 1 got days from last year, so there are no
                     // days from last year's last week number in this year.
                     if (!in_array(-1, $byWeekNum)) {
-                        $dtTmp = new \DateTime();
+                        $dtTmp = new Carbon();
                         $dtTmp = $dtTmp->setDate($year - 1, 1, 1);
                         $lastYearWeekDay      = DateUtil::getDayOfWeek($dtTmp);
                         $lastYearNo1WeekStart = DateUtil::pymod(7 - $lastYearWeekDay + $weekStart, 7);
