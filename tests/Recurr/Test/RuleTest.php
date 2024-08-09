@@ -99,7 +99,7 @@ class RuleTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals('TU', $this->rule->getWeekStart());
         $this->assertEquals(
             array(
-                new DateInclusion(new Carbon(20151210), false),
+                new DateInclusion(new Carbon('20151210'), false),
                 new DateInclusion(new Carbon('20151214T020000'), true),
                 new DateInclusion(new Carbon('20151215 21:00:00 UTC'), true, true)
             ),
@@ -107,7 +107,7 @@ class RuleTest extends \PHPUnit\Framework\TestCase
         );
         $this->assertEquals(
             array(
-                new DateExclusion(new Carbon(20140607), false),
+                new DateExclusion(new Carbon('20140607'), false),
                 new DateExclusion(new Carbon('20140620T010000'), true),
                 new DateExclusion(new Carbon('20140620 16:00:00 UTC'), true, true)
             ),
@@ -154,7 +154,7 @@ class RuleTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals('TU', $this->rule->getWeekStart());
         $this->assertEquals(
             array(
-                new DateInclusion(new Carbon(20151210), false),
+                new DateInclusion(new Carbon('20151210'), false),
                 new DateInclusion(new Carbon('20151214T020000'), true),
                 new DateInclusion(new Carbon('20151215 21:00:00 UTC'), true, true)
             ),
@@ -162,7 +162,7 @@ class RuleTest extends \PHPUnit\Framework\TestCase
         );
         $this->assertEquals(
             array(
-                new DateExclusion(new Carbon(20140607), false),
+                new DateExclusion(new Carbon('20140607'), false),
                 new DateExclusion(new Carbon('20140620T010000'), true),
                 new DateExclusion(new Carbon('20140620 16:00:00 UTC'), true, true)
             ),
@@ -206,7 +206,7 @@ class RuleTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals('TU', $this->rule->getWeekStart());
         $this->assertEquals(
             array(
-                new DateInclusion(new Carbon(20151210), false),
+                new DateInclusion(new Carbon('20151210'), false),
                 new DateInclusion(new Carbon('20151214T020000'), true),
                 new DateInclusion(new Carbon('20151215 21:00:00 UTC'), true, true)
             ),
@@ -214,7 +214,7 @@ class RuleTest extends \PHPUnit\Framework\TestCase
         );
         $this->assertEquals(
             array(
-                new DateExclusion(new Carbon(20140607), false),
+                new DateExclusion(new Carbon('20140607'), false),
                 new DateExclusion(new Carbon('20140620T010000'), true),
                 new DateExclusion(new Carbon('20140620 16:00:00 UTC'), true, true)
             ),
@@ -257,7 +257,7 @@ class RuleTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals('TU', $this->rule->getWeekStart());
         $this->assertEquals(
             array(
-                new DateInclusion(new Carbon(20151210), false),
+                new DateInclusion(new Carbon('20151210'), false),
                 new DateInclusion(new Carbon('20151214T020000'), true),
                 new DateInclusion(new Carbon('20151215 21:00:00 UTC'), true, true)
             ),
@@ -265,7 +265,7 @@ class RuleTest extends \PHPUnit\Framework\TestCase
         );
         $this->assertEquals(
             array(
-                new DateExclusion(new Carbon(20140607), false),
+                new DateExclusion(new Carbon('20140607'), false),
                 new DateExclusion(new Carbon('20140620T010000'), true),
                 new DateExclusion(new Carbon('20140620 16:00:00 UTC'), true, true)
             ),
