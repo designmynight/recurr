@@ -6,7 +6,7 @@
 [![Latest Unstable Version](https://poser.pugx.org/simshaun/recurr/v/unstable.svg)](https://packagist.org/packages/simshaun/recurr) 
 [![License](https://poser.pugx.org/simshaun/recurr/license.svg)](https://packagist.org/packages/simshaun/recurr)
 
-Recurr is a PHP library for working with recurrence rules ([RRULE](https://tools.ietf.org/html/rfc5545)) and converting them in to DateTime objects.
+Recurr is a PHP library for working with recurrence rules ([RRULE](https://tools.ietf.org/html/rfc5545)) and converting them in to Carbon objects.
 
 Recurr was developed as a precursor for a calendar with recurring events, and is heavily inspired by [rrule.js](https://github.com/jkbr/rrule).
 
@@ -47,7 +47,7 @@ $rule = (new \Recurr\Rule)
 echo $rule->getString(); //FREQ=DAILY;UNTIL=20171231T000000;BYDAY=MO,TU
 ```
 
-### RRULE to DateTime objects ###
+### RRULE to Carbon objects ###
 
 ```php
 $transformer = new \Recurr\Transformer\ArrayTransformer();
@@ -56,8 +56,8 @@ print_r($transformer->transform($rule));
 ```
 
 1. `$transformer->transform(...)` returns a `RecurrenceCollection` of `Recurrence` objects.
-2. Each `Recurrence` has `getStart()` and `getEnd()` methods that return a `\DateTime` object.
-3. If the transformed `Rule` lacks an end date, `getEnd()` will return a `\DateTime` object equal to that of `getStart()`.
+2. Each `Recurrence` has `getStart()` and `getEnd()` methods that return a `\Carbon` object.
+3. If the transformed `Rule` lacks an end date, `getEnd()` will return a `\Carbon` object equal to that of `getStart()`.
 
 > Note: The transformer has a "virtual" limit (default 732) on the number of objects it generates.
 > This prevents the script from crashing on an infinitely recurring rule.
@@ -67,9 +67,9 @@ print_r($transformer->transform($rule));
 
 Constraints are used by the ArrayTransformer to allow or prevent certain dates from being added to a `RecurrenceCollection`. Recurr provides the following constraints:
 
-- `AfterConstraint(\DateTime $after, $inc = false)`
-- `BeforeConstraint(\DateTime $before, $inc = false)`
-- `BetweenConstraint(\DateTime $after, \DateTime $before, $inc = false)`
+- `AfterConstraint(\Carbon $after, $inc = false)`
+- `BeforeConstraint(\Carbon $before, $inc = false)`
+- `BetweenConstraint(\Carbon $after, \Carbon $before, $inc = false)`
 
 `$inc` defines what happens if `$after` or `$before` are themselves recurrences. If `$inc = true`, they will be included in the collection. For example,
 
@@ -88,12 +88,12 @@ print_r($transformer->transform($rule, $constraint));
 
 `RecurrenceCollection` provides the following chainable helper methods to filter out recurrences:
 
-- `startsBetween(\DateTime $after, \DateTime $before, $inc = false)`
-- `startsBefore(\DateTime $before, $inc = false)`
-- `startsAfter(\DateTime $after, $inc = false)`
-- `endsBetween(\DateTime $after, \DateTime $before, $inc = false)`
-- `endsBefore(\DateTime $before, $inc = false)`
-- `endsAfter(\DateTime $after, $inc = false)`
+- `startsBetween(Carbon $after, Carbon $before, $inc = false)`
+- `startsBefore(Carbon $before, $inc = false)`
+- `startsAfter(Carbon $after, $inc = false)`
+- `endsBetween(Carbon $after, Carbon $before, $inc = false)`
+- `endsBefore(Carbon $before, $inc = false)`
+- `endsAfter(Carbon $after, $inc = false)`
 
 `$inc` defines what happens if `$after` or `$before` are themselves recurrences. If `$inc = true`, they will be included in the filtered collection. For example,
 
@@ -101,7 +101,7 @@ print_r($transformer->transform($rule, $constraint));
     2014-06-01 startsBetween(2014-06-01, 2014-06-20) // false
     2014-06-01 startsBetween(2014-06-01, 2014-06-20, true) // true
 
-> Note: `RecurrenceCollection` extends the Doctrine project's [ArrayCollection](https://github.com/doctrine/collections/blob/master/lib/Doctrine/Common/Collections/ArrayCollection.php) class.
+> Note: `RecurrenceCollection` extends the Doctrine project's [ArrayCollection](https://github.com/doctrine/collections/blob/2.3.x/src/ArrayCollection.php) class.
 
 RRULE to Text
 --------------------------
@@ -131,7 +131,7 @@ echo $textTransformer->transform($rule);
 Warnings
 ---------------
 
-- **Monthly recurring rules **
+- **Monthly recurring rules**
   By default, if your start date is on the 29th, 30th, or 31st, Recurr will skip following months that don't have at least that many days.
   *(e.g. Jan 31 + 1 month = March)* 
 
