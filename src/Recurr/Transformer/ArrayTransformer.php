@@ -233,7 +233,7 @@ class ArrayTransformer
 
                 $div = floor($wYearLength / 7);
                 $mod = DateUtil::pymod($wYearLength, 7);
-                $numWeeks = floor($div + ($mod / 4));
+                $numWeeks = (int) floor($div + ($mod / 4));
 
                 foreach ($byWeekNum as $weekNum) {
                     if ($weekNum < 0) {

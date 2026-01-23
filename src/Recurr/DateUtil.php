@@ -380,7 +380,7 @@ class DateUtil
     public static function hasLeapYearBug(): bool
     {
         $leapBugTest = Carbon::createFromFormat('Y-m-d', '2016-03-21');
-        if ($leapBugTest === false) {
+        if ($leapBugTest === null) {
             return false;
         }
 
