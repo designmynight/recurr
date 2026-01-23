@@ -15,5 +15,5 @@ interface ConstraintInterface
 {
     public function stopsTransformer(): bool;
 
-    public function test(Carbon(Interface $date): bool;
+    public function test(\DateTimeInterface $date): bool;
 }
